@@ -7,19 +7,40 @@ type Board = list[list[int]]
 
 
 def database_path(relative_path):
+	"""
+		Converts a relative path to a database into an absolute path
+		Additionally creates a new directory to store the database
+		
+		Inputs:
+			- relative_path: the relative path from the root directory of the target database
+		Outputs:
+			- full_path: the absolute path to the target database
+	"""
+	
+	#if running as a bundled process (ie as an exe)
 	if getattr(sys, "frozen", False):
 		base_path = os.path.dirname(sys.executable)
+	
+	#if running as a normal .py file
 	else:
 		base_path = os.path.abspath(".")
 	
+	#create the full path
 	full_path = os.path.join(base_path, relative_path)
+	
+	#create the directory for the database
 	os.makedirs(os.path.dirname(full_path), exist_ok=True)
+	
+	#return the path
 	return full_path
 
+
+# noinspection PyProtectedMember
 def resource_path(relative_path):
 	if hasattr(sys, "_MEIPASS"):
 		return os.path.join(sys._MEIPASS, relative_path)
 	return os.path.join(os.path.abspath("."), relative_path)
+
 
 class LevelManager:
 	def __init__(self) -> None:
@@ -51,6 +72,10 @@ class LevelManager:
 			""")
 	
 	def check_table_exists(self):
+		"""
+			Checks if there is at least 2 rows in the level database,
+			which indicates that it exists and has been initialized properly
+		"""
 		self.cursor.execute("SELECT COUNT(*) FROM level")
 		return self.cursor.fetchall()[0][0] >= 2
 	

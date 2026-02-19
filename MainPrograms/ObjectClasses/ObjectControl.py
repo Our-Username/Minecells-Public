@@ -24,9 +24,22 @@ type Board = list[list[int]]
 ClassVariable = TypeVar("ClassVariable")
 
 
+# noinspection PyProtectedMember
 def resource_path(relative_path):
+	"""
+		Converts a relative path to a file into an absolute path
+		
+		Inputs:
+			- relative_path: the relative path from the root directory of the target file
+		Outputs:
+			- the absolute path to the target file
+	"""
+	
+	#if running as a bundled process (ie as an exe)
 	if hasattr(sys, "_MEIPASS"):
 		return os.path.join(sys._MEIPASS, relative_path)
+	
+	#if running as a normal .py file
 	return os.path.join(os.path.abspath("."), relative_path)
 
 

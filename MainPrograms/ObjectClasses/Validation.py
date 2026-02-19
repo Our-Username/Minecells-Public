@@ -19,6 +19,7 @@ def database_path(relative_path):
 	os.makedirs(os.path.dirname(full_path), exist_ok=True)
 	return full_path
 
+# noinspection PyProtectedMember
 def resource_path(relative_path):
 	if hasattr(sys, "_MEIPASS"):
 		return os.path.join(sys._MEIPASS, relative_path)

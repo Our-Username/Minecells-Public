@@ -1574,6 +1574,7 @@ class MainProgram:
 		sys.exit()
 
 
+# noinspection PyProtectedMember
 def resource_path(relative_path):
 	if hasattr(sys, "_MEIPASS"):
 		return os.path.join(sys._MEIPASS, relative_path)
@@ -1590,6 +1591,7 @@ if __name__ == "__main__":
 	)
 	pygame.init()
 	pygame.display.set_caption("Minecells")
+	pygame.display.set_icon(pygame.image.load(resource_path("MainPrograms/logo.png")))
 	
 	#starts multiprocessing
 	mp.freeze_support()
