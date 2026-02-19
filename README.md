@@ -1,7 +1,7 @@
 Welcome to Minecells
 
 To run the game:
-1. Download [here](https://github.com/Our-Username/Minecells-Public/releases/tag/Beta-1.0.0)
+1. Download [here](https://github.com/Our-Username/Minecells-Public/releases/tag/Beta-1.0.1)
 2. CLick on "Source code (zip)"
 3. Go to your downloads folder
 4. Right click the file you just downloaded (should be called "Minecells-Public-Beta-1.0.0.zip)
