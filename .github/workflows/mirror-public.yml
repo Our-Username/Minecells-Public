@@ -1,0 +1,35 @@
+name: Mirror Beta-releases to Public
+
+on:
+  push:
+    branches:
+      - Beta-releases
+  workflow_dispatch: # allows manual triggering
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Minecells Beta
+      uses: actions/checkout@v3
+      with:
+        repository: Our-Username/Minecells
+        ref: Beta-releases
+        token: ${{ secrets.PAT_TOKEN }}
+
+    - name: Set up Git
+      run: |
+        git config --global user.name "Minecells Bot"
+        git config --global user.email "joseph.vallance.100@gmail.com"
+
+    - name: Push to public repository
+      env:
+        PUBLIC_REPO_PAT: ${{ secrets.PUBLIC_REPO_PAT }}
+      run: |
+        git remote remove public 2>/dev/null || true
+        git remote add public https://Our-Username:${PUBLIC_REPO_PAT}@github.com/Our-Username/Minecells-Public.git
+        # Create orphan branch to drop all history, then force push
+        git checkout --orphan temp
+        git commit -m "Mirror Beta-releases branch"
+        git push public temp:Beta-releases --force
